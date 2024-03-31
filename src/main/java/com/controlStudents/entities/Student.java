@@ -1,6 +1,7 @@
 package com.controlStudents.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +22,8 @@ public class Student {
     private String name;
     @Column(nullable = false)
     private Integer edad;
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
+    @Email
     private String email;
 
     @ManyToOne(targetEntity = Carrera.class)

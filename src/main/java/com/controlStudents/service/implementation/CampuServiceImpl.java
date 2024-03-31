@@ -1,8 +1,14 @@
 package com.controlStudents.service.implementation;
 
 import com.controlStudents.entities.Campu;
+import com.controlStudents.entities.Carrera;
+import com.controlStudents.entities.Division;
+import com.controlStudents.graphql.InputCampu;
 import com.controlStudents.persistence.ICampuDAO;
+import com.controlStudents.persistence.IDivisionDAO;
 import com.controlStudents.service.ICampuService;
+import com.controlStudents.service.ICarreraService;
+import com.controlStudents.service.IDivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +18,15 @@ import java.util.List;
 @Service
 public class CampuServiceImpl implements ICampuService {
 
-    @Autowired
-    ICampuDAO campuDAO;
+    private final ICampuDAO campuDAO;
+    private final ICarreraService carreraService;
+    private final IDivisionService divisionService;
+
+    public CampuServiceImpl(ICampuDAO campuDAO, ICarreraService carreraService, IDivisionService divisionService) {
+        this.campuDAO = campuDAO;
+        this.carreraService = carreraService;
+        this.divisionService = divisionService;
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -29,8 +42,31 @@ public class CampuServiceImpl implements ICampuService {
 
     @Override
     @Transactional
-    public void createCampu(Campu campu) {
-        campuDAO.save(campu);
+    public Campu createCampu(InputCampu inputCampu) {
+        List<Carrera> carreras = carreraService.findAllById(inputCampu.carrerasId());
+        List<Division> divisions = divisionService.findAllById(inputCampu.divisionesId());
+
+        Campu campu = new Campu();
+        campu.setName(inputCampu.name());
+        campu.setCarreras(carreras);
+        campu.setDivisiones(divisions);
+
+        return campuDAO.save(campu);
+    }
+
+    @Override
+    @Transactional
+    public Campu updateCampu(Long id, InputCampu inputCampu) {
+        Campu campu = findById(id);
+
+        List<Carrera> carreras = carreraService.findAllById(inputCampu.carrerasId());
+        List<Division> divisions = divisionService.findAllById(inputCampu.divisionesId());
+
+        campu.setName(inputCampu.name());
+        campu.setCarreras(carreras);
+        campu.setDivisiones(divisions);
+
+        return campuDAO.save(campu);
     }
 
     @Override

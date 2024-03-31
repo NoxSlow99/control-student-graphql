@@ -1,0 +1,99 @@
+# Only consults (Query)
+type Query {
+    # Student
+    findStudentById(studentId : String) : Student
+    findAllStudents : [Student]
+
+    # Carrera
+    findCarreraById(carreraId : String) : Carrera
+    findAllCarreras : [Carrera]
+
+    # Campu
+    findCampuById(campuId : String) : Campu
+    findAllCampu : [Campu]
+
+    # Division
+    findDivisionById(divisionId : String) : Division
+    findAllDivision : [Division]
+}
+
+# Only mutations
+type Mutation {
+    # Student
+    createStudent(inputStudent : InputStudent!) : Student
+    updateStudent(studentId : String!, inputStudent : InputStudent) : Student
+    deleteStudentById(studentId : String!) : String
+
+    # Carrera
+    createCarrera(inputCarrera : InputCarrera!) : Carrera
+    updateCarrera(carreraId : String!, inputCarrera : InputCarrera) : Carrera
+    deleteCarreraById(carreraId : String!) : String
+
+    # Campu
+    createCampu(inputCampu : InputCampu!) : Campu
+    updateCampu(campuId : String!, inputCampu : InputCampu) : Campu
+    deleteCampuById(campuId : String!) : String
+
+    # Division
+    createDivision(inputDivision : InputDivision!) : Division
+    updateDivision(divisionId : String!, inputDivision : InputDivision) : Division
+    deleteDivisionById(divisionId : String!) : String
+}
+
+type Student {
+    id : ID,
+    name : String,
+    edad : Int,
+    email : String,
+    carrera : Carrera,
+    campu : Campu,
+    division : Division
+}
+
+type Carrera {
+    id : ID,
+    name : String,
+    students : [Student],
+    campus : [Campu],
+    division : Division
+}
+
+type Campu {
+    id : ID,
+    name : String,
+    students : [Student],
+    carreras : [Carrera],
+    divisiones : [Division]
+}
+
+type Division {
+    id : ID,
+    name : String,
+    students : [Student],
+    carreras : [Carrera]
+}
+
+# Inputs
+input InputStudent {
+    name : String!,
+    edad : Int,
+    email : String!
+    carreraId : ID!
+    campuId : ID!,
+    divisionId : ID!
+}
+
+input InputCarrera {
+    name : String!,
+    divisionId : ID!
+}
+
+input InputCampu {
+    name : String!,
+    carrerasId : [ID!],
+    divisionesId : [ID!]
+}
+
+input InputDivision {
+    name : String!
+}

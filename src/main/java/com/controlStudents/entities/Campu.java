@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +18,7 @@ public class Campu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 45, nullable = false)
+    @Column(length = 45, nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "campu", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Student.class)
@@ -40,5 +38,5 @@ public class Campu {
             joinColumns = @JoinColumn(name = "campus_id"),
             inverseJoinColumns = @JoinColumn(name = "division_id")
     )
-    private List<Division> divisions;
+    private List<Division> divisiones;
 }
