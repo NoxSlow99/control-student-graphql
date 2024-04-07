@@ -1,11 +1,11 @@
 package com.controlStudents.service.implementation;
 
-import com.controlStudents.entities.Campu;
-import com.controlStudents.entities.Carrera;
-import com.controlStudents.entities.Division;
-import com.controlStudents.entities.Student;
+import com.controlStudents.persistence.entities.Campu;
+import com.controlStudents.persistence.entities.Carrera;
+import com.controlStudents.persistence.entities.Division;
+import com.controlStudents.persistence.entities.Student;
 import com.controlStudents.graphql.InputStudent;
-import com.controlStudents.persistence.IStudentDAO;
+import com.controlStudents.persistence.repository.IStudentDAO;
 import com.controlStudents.service.ICampuService;
 import com.controlStudents.service.ICarreraService;
 import com.controlStudents.service.IDivisionService;
@@ -66,12 +66,6 @@ public class StudentServiceImpl implements IStudentService {
         Division division = divisionService.findById(inputStudent.divisionId());
 
         return getStudent(inputStudent, student, carrera, campu, division);
-    }
-
-    @Override
-    @Transactional
-    public void deleteById(Long id) {
-        studentDAO.deleteById(id);
     }
 
     @NotNull

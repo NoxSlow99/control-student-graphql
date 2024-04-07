@@ -1,15 +1,13 @@
 package com.controlStudents.service.implementation;
 
-import com.controlStudents.entities.Campu;
-import com.controlStudents.entities.Carrera;
-import com.controlStudents.entities.Division;
+import com.controlStudents.persistence.entities.Campu;
+import com.controlStudents.persistence.entities.Carrera;
+import com.controlStudents.persistence.entities.Division;
 import com.controlStudents.graphql.InputCampu;
-import com.controlStudents.persistence.ICampuDAO;
-import com.controlStudents.persistence.IDivisionDAO;
+import com.controlStudents.persistence.repository.ICampuDAO;
 import com.controlStudents.service.ICampuService;
 import com.controlStudents.service.ICarreraService;
 import com.controlStudents.service.IDivisionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,11 +65,5 @@ public class CampuServiceImpl implements ICampuService {
         campu.setDivisiones(divisions);
 
         return campuDAO.save(campu);
-    }
-
-    @Override
-    @Transactional
-    public void deleteById(Long id) {
-        campuDAO.deleteById(id);
     }
 }

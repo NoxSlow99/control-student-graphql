@@ -1,9 +1,9 @@
 package com.controlStudents.service.implementation;
 
-import com.controlStudents.entities.Carrera;
-import com.controlStudents.entities.Division;
+import com.controlStudents.persistence.entities.Carrera;
+import com.controlStudents.persistence.entities.Division;
 import com.controlStudents.graphql.InputCarrera;
-import com.controlStudents.persistence.ICarreraDAO;
+import com.controlStudents.persistence.repository.ICarreraDAO;
 import com.controlStudents.service.ICarreraService;
 import com.controlStudents.service.IDivisionService;
 import org.springframework.stereotype.Service;
@@ -62,11 +62,5 @@ public class CarreraServiceImpl implements ICarreraService {
         carrera.setDivision(division);
 
         return carreraDAO.save(carrera);
-    }
-
-    @Override
-    @Transactional
-    public void deleteCarrera(Long id) {
-        carreraDAO.deleteById(id);
     }
 }

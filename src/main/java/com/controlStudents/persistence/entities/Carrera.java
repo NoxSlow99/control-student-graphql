@@ -1,4 +1,4 @@
-package com.controlStudents.entities;
+package com.controlStudents.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -23,7 +22,7 @@ public class Carrera {
     @Column(length = 45, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "carrera", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Student.class)
+    @OneToMany(mappedBy = "carrera", fetch = FetchType.LAZY, targetEntity = Student.class)
     private List<Student> students;
 
     @ManyToMany(mappedBy = "carreras", fetch = FetchType.LAZY, targetEntity = Campu.class)

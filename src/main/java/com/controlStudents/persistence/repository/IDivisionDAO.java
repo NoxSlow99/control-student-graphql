@@ -1,10 +1,8 @@
-package com.controlStudents.persistence;
+package com.controlStudents.persistence.repository;
 
-import com.controlStudents.entities.Division;
+import com.controlStudents.persistence.entities.Division;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface IDivisionDAO extends JpaRepository<Division, Long> {

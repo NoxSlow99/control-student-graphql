@@ -1,4 +1,4 @@
-package com.controlStudents.entities;
+package com.controlStudents.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,10 +22,10 @@ public class Division {
     @Column(length = 45, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "division", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Student.class)
+    @OneToMany(mappedBy = "division", fetch = FetchType.LAZY, targetEntity = Student.class)
     private List<Student> students;
 
-    @OneToMany(mappedBy = "division", fetch = FetchType.LAZY, cascade = CascadeType.ALL,targetEntity = Carrera.class)
+    @OneToMany(mappedBy = "division", fetch = FetchType.LAZY,targetEntity = Carrera.class)
     private List<Carrera> carreras;
 
     @ManyToMany(mappedBy = "divisiones", targetEntity = Campu.class)

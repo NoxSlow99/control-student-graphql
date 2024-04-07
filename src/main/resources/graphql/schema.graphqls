@@ -22,22 +22,41 @@ type Mutation {
     # Student
     createStudent(inputStudent : InputStudent!) : Student
     updateStudent(studentId : String!, inputStudent : InputStudent) : Student
-    deleteStudentById(studentId : String!) : String
 
     # Carrera
     createCarrera(inputCarrera : InputCarrera!) : Carrera
     updateCarrera(carreraId : String!, inputCarrera : InputCarrera) : Carrera
-    deleteCarreraById(carreraId : String!) : String
 
     # Campu
     createCampu(inputCampu : InputCampu!) : Campu
     updateCampu(campuId : String!, inputCampu : InputCampu) : Campu
-    deleteCampuById(campuId : String!) : String
 
     # Division
     createDivision(inputDivision : InputDivision!) : Division
     updateDivision(divisionId : String!, inputDivision : InputDivision) : Division
-    deleteDivisionById(divisionId : String!) : String
+
+    # Login
+    login(authLoginRequest : AuthLoginRequest) : AuthResponse!
+
+    # Register
+    register(userRequest : AuthCreateUserRequest) : AuthResponse!
+}
+
+input AuthCreateUserRequest {
+    username : String!,
+    password : String!,
+    roleRequest : AuthCreateRoleRequest!
+}
+
+input AuthCreateRoleRequest {
+    roleListName : [String!]!
+}
+
+type AuthResponse {
+    username : String,
+    message : String,
+    jwt : String,
+    status : Boolean
 }
 
 type Student {
@@ -96,4 +115,9 @@ input InputCampu {
 
 input InputDivision {
     name : String!
+}
+
+input AuthLoginRequest {
+    username : String!,
+    password : String!
 }

@@ -1,4 +1,4 @@
-package com.controlStudents.entities;
+package com.controlStudents.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class Campu {
     @Column(length = 45, nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "campu", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Student.class)
+    @OneToMany(mappedBy = "campu", fetch = FetchType.LAZY, targetEntity = Student.class)
     private List<Student> students;
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = Carrera.class)

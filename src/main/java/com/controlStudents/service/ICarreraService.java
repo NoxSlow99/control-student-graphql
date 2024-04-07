@@ -1,6 +1,6 @@
 package com.controlStudents.service;
 
-import com.controlStudents.entities.Carrera;
+import com.controlStudents.persistence.entities.Carrera;
 import com.controlStudents.graphql.InputCarrera;
 
 import java.util.List;
@@ -14,5 +14,4 @@ public interface ICarreraService {
 
     Carrera createCarrera (InputCarrera inputCarrera);
     Carrera updateCarrera (Long id, InputCarrera inputCarrera);
-    void deleteCarrera (Long id);
 }

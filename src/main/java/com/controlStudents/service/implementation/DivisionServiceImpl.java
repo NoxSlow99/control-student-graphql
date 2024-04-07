@@ -1,11 +1,10 @@
 package com.controlStudents.service.implementation;
 
-import com.controlStudents.entities.Carrera;
-import com.controlStudents.entities.Division;
+import com.controlStudents.persistence.entities.Division;
 import com.controlStudents.graphql.InputDivision;
-import com.controlStudents.persistence.ICarreraDAO;
-import com.controlStudents.persistence.IDivisionDAO;
+import com.controlStudents.persistence.repository.IDivisionDAO;
 import com.controlStudents.service.IDivisionService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +27,7 @@ public class DivisionServiceImpl implements IDivisionService {
 
     @Override
     @Transactional(readOnly = true)
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Division> findAll() {
         return divisionDAO.findAll();
     }
@@ -54,11 +54,5 @@ public class DivisionServiceImpl implements IDivisionService {
         division.setName(inputDivision.name());
 
         return divisionDAO.save(division);
-    }
-
-    @Override
-    @Transactional
-    public void deleteDivision(Long id) {
-        divisionDAO.deleteById(id);
     }
 }
